@@ -28,7 +28,6 @@ const UserSchema: Schema = new Schema({
 export const UserModel = models.User || model("User", UserSchema);
 
 
-
 const ItemSchema: Schema = new Schema({
     id: {
         type: UUID,
@@ -49,7 +48,7 @@ const ItemSchema: Schema = new Schema({
     }, 
 });
 
-export const Item = models.Item || model("Item", ItemSchema);
+export const ItemModel = models.Item || model("Item", ItemSchema);
 
 const TradeSchema: Schema = new Schema({
     id: {
