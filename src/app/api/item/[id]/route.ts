@@ -49,12 +49,13 @@ export async function PUT(
         return NextResponse.json(
             {
                 message: "Item updated successfully",
-                item: {
-                    id: updatedItem.id,
-                    userId: updatedItem.userId,
-                    itemName: updatedItem.itemName,
-                    itemDescription: updatedItem.itemDescription,
-                },
+                // item: {
+                //     id: updatedItem.id,
+                //     userId: updatedItem.userId,
+                //     itemName: updatedItem.itemName,
+                //     itemDescription: updatedItem.itemDescription,
+                // },
+                item: updatedItem,
             },
             { status: 200 }
         );
