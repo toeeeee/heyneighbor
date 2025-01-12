@@ -64,7 +64,7 @@ export default function App() {
         <div className = {styles.trade_div}>
             <div className={styles.trade_box}>
                 <div className = {styles.head_box}>
-                    <Image src = {ai_villager} alt = "Merchant" className="merchant-logo"></Image> 
+                    <Image src = {ai_villager} alt = "Merchant" className="merchant-logo img-responsive"></Image> 
                     <div>
                     <p className={styles.name}>Merchant Inventory
                     </p>
@@ -74,7 +74,7 @@ export default function App() {
             </div>
             <div className={styles.trade_box}>
                 <div className = {styles.head_box}>
-                    <Image src = {ai_steve} alt = "steve" className="steve-logo"></Image> 
+                    <Image src = {ai_steve} alt = "steve" className="steve-logo img-responsive"></Image> 
 
                         <p className={styles.name}>Your
                             Inventory
