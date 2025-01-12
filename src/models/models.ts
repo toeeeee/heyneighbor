@@ -96,10 +96,4 @@ const TradeSchema: Schema = new Schema({
     },
 });
 
-// const enum = {
-//     values: ['opening', 'open', 'closing', 'closed'],
-//     message: 'enum validator failed for path `{PATH}` with value `{VALUE}`'
-//   }
-//   const s = new Schema({ state: { type: String, enum: enum })
-
 export const TradeModel = models.Trade || model("Trade", TradeSchema);
