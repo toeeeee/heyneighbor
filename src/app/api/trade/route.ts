@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
                 //     requesteeId: newTrade.requesteeId,
                 //     requesteeItemId: newTrade.requesteeItemId,
                 // },
-                trade: newTrade,
+                trade: newTrade
             },
             { status: 201 }
         );

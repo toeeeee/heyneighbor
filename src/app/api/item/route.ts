@@ -19,7 +19,7 @@ export function validateRequestBody(body: any): body is ItemRequestBody {
         typeof body.itemDescription === "string"
     );
 }
-await connectMongo();//TESTING
+await connectMongo(); //TESTING
 
 export async function POST(request: NextRequest) {
     try {
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
 
         const { userId, itemName, itemDescription } = body;
         const userIdObjectId = new ObjectId(userId);
-        
+
         const user = await UserModel.findById(userIdObjectId);
         if (!user) {
             return NextResponse.json(
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        console.log({userIdObjectId, itemName, itemDescription})//TESTING
+        console.log({ userIdObjectId, itemName, itemDescription }); //TESTING
         const newItem = await ItemModel.create({
             userId: userIdObjectId,
             itemName,
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
                 //     itemName: newItem.itemName,
                 //     itemDescription: newItem.itemDescription,
                 // },
-                item: newItem,
+                item: newItem
             },
             { status: 201 }
         );
