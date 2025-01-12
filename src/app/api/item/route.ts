@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { ItemModel, UserModel } from "@/models/models"; // Adjust the import path as needed
+import { UserModel, ItemModel } from "@/models/models";
 import { connectMongo } from "@/utils/mongodb";
+import { NextRequest, NextResponse } from "next/server";
 
-type ItemRequestBody = {
+export type ItemRequestBody = {
     userId: string;
     itemName: string;
     itemDescription: string;
@@ -10,7 +10,7 @@ type ItemRequestBody = {
 await connectMongo();//TESTING
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function validateRequestBody(body: any): body is ItemRequestBody {
+export function validateRequestBody(body: any): body is ItemRequestBody {
     return (
         typeof body === "object" &&
         typeof body.userId === "string" &&
@@ -18,6 +18,7 @@ function validateRequestBody(body: any): body is ItemRequestBody {
         typeof body.itemDescription === "string"
     );
 }
+await connectMongo();//TESTING
 
 export async function POST(request: NextRequest) {
     try {
@@ -31,8 +32,9 @@ export async function POST(request: NextRequest) {
         }
 
         const { userId, itemName, itemDescription } = body;
-
-        const user = await UserModel.findOne({ id: userId });
+        
+        const user = await UserModel.findById(userId);
+        // const user = await UserModel.findOne({ id: userId });
         if (!user) {
             return NextResponse.json(
                 { error: "User not found" },
@@ -60,116 +62,6 @@ export async function POST(request: NextRequest) {
         );
     } catch (error) {
         console.error("Error creating item:", error);
-        return NextResponse.json(
-            { error: "Internal server error" },
-            { status: 500 }
-        );
-    }
-}
-
-export async function PUT(request: NextRequest) {
-    try {
-        const body = await request.json();
-
-        if (!validateRequestBody(body)) {
-            return NextResponse.json(
-                { error: "Invalid request body" },
-                { status: 400 }
-            );
-        }
-
-        const { userId, itemName, itemDescription } = body;
-
-        // Verify that the user exists
-        const user = await UserModel.findOne({ id: userId });
-        if (!user) {
-            return NextResponse.json(
-                { error: "User not found" },
-                { status: 404 }
-            );
-        }
-
-        // Find and update the item
-        const updatedItem = await ItemModel.findOneAndUpdate(
-            {
-                userId: userId,
-                itemName: itemName,
-            },
-            {
-                itemDescription,
-            },
-            {
-                new: true,
-            }
-        );
-
-        if (!updatedItem) {
-            return NextResponse.json(
-                { error: "Item not found" },
-                { status: 404 }
-            );
-        }
-
-        return NextResponse.json(
-            {
-                message: "Item updated successfully",
-                item: {
-                    id: updatedItem.id,
-                    userId: updatedItem.userId,
-                    itemName: updatedItem.itemName,
-                    itemDescription: updatedItem.itemDescription,
-                },
-            },
-            { status: 200 }
-        );
-    } catch (error) {
-        console.error("Error updating item:", error);
-        return NextResponse.json(
-            { error: "Internal server error" },
-            { status: 500 }
-        );
-    }
-}
-
-export async function DELETE(request: NextRequest) {
-    try {
-        const body = await request.json();
-
-        if (!validateRequestBody(body)) {
-            return NextResponse.json(
-                { error: "Invalid request body" },
-                { status: 400 }
-            );
-        }
-
-        const { userId, itemName } = body;
-
-        const user = await UserModel.findOne({ id: userId });
-        if (!user) {
-            return NextResponse.json(
-                { error: "User not found" },
-                { status: 404 }
-            );
-        }
-
-        const deletedItem = await ItemModel.findOneAndDelete({
-            userId: userId,
-            itemName: itemName,
-        });
-
-        if (!deletedItem) {
-            return NextResponse.json(
-                { error: "Item not found" },
-                { status: 404 }
-            );
-        }
-
-        return NextResponse.json(
-            { message: "Item deleted successfully" },
-            { status: 200 }
-        );
-    } catch (error) {
-        console.error("Error deleting item:", error);
         return NextResponse.json(
             { error: "Internal server error" },
             { status: 500 }
