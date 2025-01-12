@@ -6,14 +6,14 @@ import { NextRequest, NextResponse } from "next/server";
 
 
 
-// GET /api/user/[userId]/items
+// GET /api/user/items/[userId]
 export async function GET(
     request: NextRequest,
-    { params }: { params: { userId: string } }
+    { params }: { params: Promise<{ userId: string }> }
 ) {
     try {
         await connectMongo();//TRY?
-        const userId = params.userId;
+        const userId = (await params).userId;
 
         // // Example: Get searchParams from URL if needed
         // const searchParams = request.nextUrl.searchParams

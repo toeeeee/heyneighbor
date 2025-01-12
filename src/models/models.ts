@@ -49,7 +49,7 @@ const ItemSchema: Schema = new Schema({
 
 export const ItemModel = models.Item || model("Item", ItemSchema);
 
-const statusEnum = {
+export const statusEnum = {
     values: ["pending", "completed", "reject"],
     message: "enum validator failed for path `{PATH}` with value `{VALUE}`",
 };
