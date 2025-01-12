@@ -13,16 +13,11 @@ const UserSchema: Schema = new Schema({
         required: true,
         unique: true,
     },
-    likes: {
+    votes: {
         type: Number,
         required: true,
         default: 0,
-    },
-    dislikes: {
-        type: Number,
-        required: true,
-        default: 0,
-    },
+    }
 });
 
 export const UserModel = models.User || model("User", UserSchema);
