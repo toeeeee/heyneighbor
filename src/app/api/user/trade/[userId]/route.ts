@@ -1,7 +1,7 @@
 // app/api/user/[userId]/trade/route.ts
 import { TradeModel } from "@/models/models";
 import { connectMongo } from "@/utils/mongodb";
-import { ObjectId } from "mongodb";
+// import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
 await connectMongo(); 
@@ -31,7 +31,7 @@ export async function GET(
                 { status: 400 }
             );
         }
-        const userIdObjectId = new ObjectId(userId);
+        // const userIdObjectId = new ObjectId(userId);
         // if (who === "requestor") {
         //     const trades = await TradeModel.find({
         //         requestorId: userIdObjectId,
@@ -52,7 +52,7 @@ export async function GET(
         // }
             // Use a single query pattern with dynamic field selection
             const queryField = `${who}Id`;
-            const trades = await TradeModel.find({ [queryField]: userIdObjectId })
+            const trades = await TradeModel.find({ [queryField]: userId })
                 .populate('requestorId')
                 .populate('requesteeId')
                 .populate('requestorItemId')
