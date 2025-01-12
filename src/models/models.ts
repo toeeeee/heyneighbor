@@ -16,6 +16,11 @@ const UserSchema: Schema = new Schema({
         type: Number,
         required: true,
         default: 0,
+    },
+    image_url: {
+        type: String,
+        required: true,
+        default: 'https://images.freeimages.com/image/thumbs/925/waterfowl-glide-illustration-png-5696314.png'
     }
 });
 
@@ -39,6 +44,11 @@ const ItemSchema: Schema = new Schema({
         type: String,
         required: true,
     },
+    quantity: {
+        type: Number,
+        required: true,
+        default: 1
+    }
 });
 
 

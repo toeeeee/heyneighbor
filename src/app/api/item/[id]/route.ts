@@ -20,8 +20,8 @@ export async function PUT(
             );
         }
         
-        const { userId, itemName, itemDescription } = body; // change id to be a path param to be good convention later
-
+        const { userId, itemName, itemDescription, amt} = body; // change id to be a path param to be good convention later
+        // amt can be negative
         const itemObjectId = new ObjectId(id);
         const item = await ItemModel.findById(itemObjectId);
         console.log(item);
@@ -33,6 +33,7 @@ export async function PUT(
                 userId: userId || item.userId,
                 itemName: itemName || item.itemName,
                 itemDescription: itemDescription || item.itemDescription,
+                $inc: {quantity: amt}
             },
             {
                 new: true,
@@ -49,13 +50,12 @@ export async function PUT(
         return NextResponse.json(
             {
                 message: "Item updated successfully",
-                // item: {
-                //     id: updatedItem.id,
-                //     userId: updatedItem.userId,
-                //     itemName: updatedItem.itemName,
-                //     itemDescription: updatedItem.itemDescription,
-                // },
-                item: updatedItem,
+                item: {
+                    id: updatedItem.id,
+                    userId: updatedItem.userId,
+                    itemName: updatedItem.itemName,
+                    itemDescription: updatedItem.itemDescription,
+                },
             },
             { status: 200 }
         );
