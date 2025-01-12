@@ -15,8 +15,7 @@ export async function GET(
         const objId = new ObjectId(id);
 
         await connectMongo();   
-
-        const user = await UserModel.findById({objId});
+        const user = await UserModel.findById(objId);
         console.log(user);
         return NextResponse.json({user});
     }
