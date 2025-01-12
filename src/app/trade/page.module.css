@@ -1,0 +1,94 @@
+.title_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #abaaaa;
+    height: 20vh;
+    margin: 1%;
+    border-radius: 10px;
+
+}
+
+.title {
+    font-family:'Gill Sans';
+    font-size: 60px;
+}
+
+.search-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #abaaaa;
+
+    height: 40vh;
+}
+
+.search_bar {
+    padding:5px;
+    margin-right: 5px;
+    margin-top: 20px;
+    border-radius: 2px;
+    width: 600px;
+    color: #000;
+    outline: #ffffff;
+
+}
+.search_button {
+    background-color: white;
+    display: inline-block;
+    color: black;
+    padding: 5px 32px;
+    border: 2px solid #bebebe
+}
+
+
+.vote_button {
+    border: 10px;
+    background-color: white;
+    padding: 2px 15px;
+    color: #000;
+    margin-right: 15px;
+
+}
+.trade_div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; /* Ensure vertical alignment of children */
+    margin: 30px 1% 0; /* Top, left/right, bottom spacing */
+    padding: 20px; /* Add inner spacing */
+    background-color: #abaaaa; /* Light grayish background */
+    height: 100vh; /* Full viewport height */
+    box-sizing: border-box; /* Include padding and border in height/width */
+    border-radius: 15px;
+}
+
+.trade_box {
+    display: flex; /* Flex container for child elements */
+    flex-direction: column; /* Stack children vertically within the box */
+    background-color: rgb(86, 68, 68); /* Dark reddish-brown background */
+    padding: 10px; /* Inner spacing for content */
+    margin: 10px;
+    border: 1px solid #ccc; /* Subtle border for better structure */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%; /* Fixed width for the box */
+    height: 100%; /* Fixed height for the box */
+    box-sizing: border-box; /* Include padding and border in dimensions */
+}
+
+.head_box {
+    display:flex;
+    flex-direction: row;
+    width: 20%;
+    height:20%;
+}
+
+.name {
+    font-family: 'Courier New', Courier, monospace;
+    padding-left: 15px;
+    justify-items: center;
+}
+
