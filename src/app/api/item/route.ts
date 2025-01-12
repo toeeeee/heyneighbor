@@ -1,6 +1,6 @@
 import { UserModel, ItemModel } from "@/models/models";
 import { connectMongo } from "@/utils/mongodb";
-import { ObjectId } from "mongodb";
+// import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
 export type ItemRequestBody = {
@@ -33,9 +33,9 @@ export async function POST(request: NextRequest) {
         }
 
         const { userId, itemName, itemDescription } = body;
-        const userIdObjectId = new ObjectId(userId);
+        // const userIdObjectId = new ObjectId(userId);
 
-        const user = await UserModel.findById(userIdObjectId);
+        const user = await UserModel.findById(userId);
         if (!user) {
             return NextResponse.json(
                 { error: "User not found" },
@@ -43,9 +43,9 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        console.log({ userIdObjectId, itemName, itemDescription }); //TESTING
+        console.log({ userId, itemName, itemDescription }); //TESTING
         const newItem = await ItemModel.create({
-            userId: userIdObjectId,
+            userId: userId,
             itemName,
             itemDescription,
         });

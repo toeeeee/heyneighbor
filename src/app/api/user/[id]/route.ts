@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from 'next/server';
-import { ObjectId } from "mongodb";
+// import { ObjectId } from "mongodb";
 import { connectMongo } from '@/utils/mongodb';
 import { UserModel } from '@/models/models';
 
@@ -12,10 +12,10 @@ export async function GET(
 {
     try {
         const id = (await params).id;
-        const objId = new ObjectId(id);
+        // const objId = new ObjectId(id);
 
         await connectMongo();   
-        const user = await UserModel.findById(objId);
+        const user = await UserModel.findById(id);
         console.log(user);
         return NextResponse.json({user});
     }
@@ -39,18 +39,18 @@ export async function POST(req: NextRequest,
                 { status: 400 }
             );
         }
-
-        const objId = new ObjectId((await params).id);
+        const id = (await params).id;
+        // const objId = new ObjectId((await params).id);
         
         await connectMongo();
 
         if (body.vote) {
-            const updatedUser = await UserModel.findOneAndUpdate({_id: objId}, {$inc: {votes: 1}});   
+            const updatedUser = await UserModel.findOneAndUpdate({_id: id}, {$inc: {votes: 1}});   
             console.log(updatedUser);
             return NextResponse.json( {updatedUser} );
         }
         else {
-            const updatedUser = await UserModel.findOneAndUpdate({_id: objId}, {$inc: {votes: -1}});   
+            const updatedUser = await UserModel.findOneAndUpdate({_id: id}, {$inc: {votes: -1}});   
             return NextResponse.json( {updatedUser} );
         }
         return NextResponse.json( {error: "peepeepoopoo"}, {status: 500})

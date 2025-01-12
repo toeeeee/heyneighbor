@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectMongo } from "@/utils/mongodb";
-import { ObjectId } from "mongodb";
+// import { ObjectId } from "mongodb";
 import { statusEnum, TradeModel } from '@/models/models';
 await connectMongo();//TESTING
 
@@ -22,8 +22,8 @@ export async function PUT(
         const status = body.status;
         // const { status } = body; // change id to be a path param to be good convention later
 
-        const tradeObjectId = new ObjectId(id);
-        const trade = await TradeModel.findById(tradeObjectId);
+        // const tradeObjectId = new ObjectId(id);
+        const trade = await TradeModel.findById(id);
         console.log(trade);
 
         if (!statusEnum.values.includes(status)) {
@@ -35,7 +35,7 @@ export async function PUT(
 
         const updatedTrade = await TradeModel.findOneAndUpdate(
             {
-                _id: tradeObjectId,
+                _id: id,
             },
             {
                 status: status,
@@ -83,13 +83,13 @@ export async function DELETE(
             );
         }
 
-        const tradeObjectId = new ObjectId(id);
-        const trade = await TradeModel.findById(tradeObjectId);
+        // const tradeObjectId = new ObjectId(id);
+        const trade = await TradeModel.findById(id);
         console.log(trade);
 
 
         const deleteTrade = await TradeModel.findOneAndDelete({
-            _id: tradeObjectId,
+            _id: id,
         });
 
         if (!deleteTrade) {

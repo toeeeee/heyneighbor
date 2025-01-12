@@ -2,7 +2,7 @@
 
 import { TradeModel, UserModel } from "@/models/models";
 import { connectMongo } from "@/utils/mongodb";
-import { ObjectId } from "mongodb";
+// import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
 export type TradeRequestBody = {
@@ -35,8 +35,8 @@ export async function POST(request: NextRequest) {
             );
         }
         const {requestorId, requestorItemId, requesteeId, requesteeItemId} = body;
-        const requestorIdObjectId = new ObjectId(requestorId);
-        const requestorUser = UserModel.findById(requestorIdObjectId);
+        // const requestorIdObjectId = new ObjectId(requestorId);
+        const requestorUser = UserModel.findById(requestorId);
         if (!requestorUser) {
             return NextResponse.json(
                 { error: "requestorUser not found" },
@@ -44,8 +44,8 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const requesteeIdObjectId = new ObjectId(requesteeId);
-        const requesteeUser = UserModel.findById(requesteeIdObjectId);
+        // const requesteeIdObjectId = new ObjectId(requesteeId);
+        const requesteeUser = UserModel.findById(requesteeId);
         if (!requesteeUser) {
             return NextResponse.json(
                 { error: "requsteeUser not found" },

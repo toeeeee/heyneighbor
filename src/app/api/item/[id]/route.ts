@@ -77,10 +77,10 @@ export async function DELETE(
         if (!id) {
             return NextResponse.json({ error: "no id" }, { status: 400 });
         }
-        const idObjectId = new ObjectId(id);
+        // const idObjectId = new ObjectId(id);
 
         const deletedItem = await ItemModel.findOneAndDelete({
-            _id: idObjectId,
+            _id: id,
             // userId: userId,
             // itemName: itemName,
         });
