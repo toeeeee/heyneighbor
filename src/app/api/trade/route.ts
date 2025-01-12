@@ -55,6 +55,18 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        const userId = requesteeId;
+        const bodyy = JSON.stringify({userId});
+
+        if (requesteeItemId == "6783b161ca6e3621902509c8") {
+            await fetch(`../item/${requesteeId}`, 
+                {method: 'PUT', 
+                headers: {'Content-Type': 'application/json'},
+                body: bodyy})
+
+            await fetch(`../item/${}`)
+        }
+
         const newTrade = await TradeModel.create({
             requestorId, requestorItemId, requesteeId, requesteeItemId, tradeStatus
         });
