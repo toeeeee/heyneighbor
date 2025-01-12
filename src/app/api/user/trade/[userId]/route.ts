@@ -52,10 +52,11 @@ export async function GET(
         // }
             // Use a single query pattern with dynamic field selection
             const queryField = `${who}Id`;
+            console.log('queryField:', queryField)
             const trades = await TradeModel.find({ [queryField]: userId })
                 .populate('requestorId')
-                .populate('requesteeId')
                 .populate('requestorItemId')
+                .populate('requesteeId')
                 .populate('requesteeItemId');
                 // .lean();
             console.log('trades:', trades);//TESTING

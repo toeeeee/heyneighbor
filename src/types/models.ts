@@ -4,6 +4,7 @@ export type UserType = {
     _id: ObjectId,
     name: string,
     votes: number,
+    image_url: string,
 };
 
 
@@ -19,9 +20,9 @@ export type StatusEnum = typeof statusEnumValues[number];
 
 export type TradeType = {
     _id: ObjectId,
-    requestorId: string,
-    requestorItemId: string,
-    requesteeId: string,
-    requesteeItemId: string, 
+    requestorId: UserType,
+    requestorItemId: ItemType,
+    requesteeId: UserType,
+    requesteeItemId: ItemType, 
     status: StatusEnum,
 };
