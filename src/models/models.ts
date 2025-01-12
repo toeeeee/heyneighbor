@@ -73,7 +73,7 @@ const TradeSchema: Schema = new Schema({
     },
     requesteeItemId: {
         type: Schema.Types.ObjectId,
-        required: true,
+        required: false,
         ref: "Item",
     },
     status: {

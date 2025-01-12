@@ -10,6 +10,7 @@ export type TradeRequestBody = {
     requestorItemId: string;
     requesteeId: string;
     requesteeItemId: string;
+    tradeStatus: string;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,7 +20,8 @@ export function validateRequestBody(body: any): body is TradeRequestBody {
         typeof body.requestorId === "string" &&
         typeof body.requestorItemId === "string" &&
         typeof body.requesteeId === "string" &&
-        typeof body.requesteeItemId === "string"
+        typeof body.requesteeItemId === "string" &&
+        typeof body.tradeStatus === "string"
     );
 }
 
@@ -34,7 +36,7 @@ export async function POST(request: NextRequest) {
                 { status: 400 }
             );
         }
-        const {requestorId, requestorItemId, requesteeId, requesteeItemId} = body;
+        const {requestorId, requestorItemId, requesteeId, requesteeItemId, tradeStatus} = body;
         // const requestorIdObjectId = new ObjectId(requestorId);
         const requestorUser = UserModel.findById(requestorId);
         if (!requestorUser) {
@@ -54,7 +56,7 @@ export async function POST(request: NextRequest) {
         }
 
         const newTrade = await TradeModel.create({
-            requestorId, requestorItemId, requesteeId, requesteeItemId
+            requestorId, requestorItemId, requesteeId, requesteeItemId, tradeStatus
         });
 
         return NextResponse.json(
