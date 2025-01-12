@@ -1,5 +1,3 @@
-import { UserModel } from "@/models/models";
-import { connect } from "mongoose";
 import "./envConfig.ts";
 
 // (async () => {
@@ -17,7 +15,6 @@ import "./envConfig.ts";
 //     const joseUser = new UserModel({ name: "ally" });
 //     await joseUser.save();
 
-
 //     // find all users
 //     const user = await UserModel.find();
 //     console.log(user)
@@ -30,21 +27,38 @@ import "./envConfig.ts";
 // // or, for inserting large batches of documents
 // await Tank.insertMany([{ size: 'small' }]);
 
-
 // TESTING API
-(async()=>{
-    const itemApi = 'http://localhost:3000/api/item/'; //JOSE ACCT
+// (async()=>{
+//     const itemApi = 'http://localhost:3000/api/item/'; //JOSE ACCT
+//     const response = await fetch(itemApi, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//             userId: '8255715d-61f5-4b9b-bec7-e4ae2860b6e3',
+//             itemName: 'dynamos',
+//             itemDescription: 'dinosaur oaks!!!.'
+//         })
+//     });
+//     const newUser = await response.json();
+//     console.log('newUser:',newUser);//TESTING
+// })()
+
+// change item
+(async () => {
+    const itemApi = "http://localhost:3000/api/item/6783199895d4054423e79b8d"; //JOSE ACCT
     const response = await fetch(itemApi, {
-        method: 'POST',
+        method: "DELETE",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            userId: '8255715d-61f5-4b9b-bec7-e4ae2860b6e3',
-            itemName: 'cheerios',
-            itemDescription: 'A delicious and healthy breakfast cereal made from whole grain oats.'
-        })
+        // body: JSON.stringify({
+        //     // userId: '8255715d-61f5-4b9b-bec7-e4ae2860b6e3',
+        //     // itemName: 'cheerios',
+        //     itemDescription: "grainy oaks",
+        // }),
     });
     const newUser = await response.json();
-    console.log('newUser:',newUser);//TESTING
-})()
+    console.log("newUser:", newUser); //TESTING
+})();

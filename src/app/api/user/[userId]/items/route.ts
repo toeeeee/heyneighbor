@@ -1,9 +1,12 @@
 // app/api/item/[userId]/route.ts
 import { ItemModel } from "@/models/models";
 import { connectMongo } from "@/utils/mongodb";
+import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
-// GET /api/item/[userId]
+
+
+// GET /api/user/[userId]/items
 export async function GET(
     request: NextRequest,
     { params }: { params: { userId: string } }
@@ -23,8 +26,9 @@ export async function GET(
                 { status: 400 }
             );
         }
+        const userIdObjectId = new ObjectId(userId);
         const items = await ItemModel.find({ 
-            userId: userId 
+            userId: userIdObjectId 
          });
         console.log(items);
 
