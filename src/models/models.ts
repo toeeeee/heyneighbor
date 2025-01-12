@@ -12,6 +12,12 @@ const UserSchema: Schema = new Schema({
         required: true,
         unique: true,
     },
+    // password: {
+    //     type: String, 
+    //     required: true,
+    //     unique: false,
+    //     default: "123abc"
+    // },
     votes: {
         type: Number,
         required: true,
