@@ -16,37 +16,55 @@ export async function GET(
         const searchParams = request.nextUrl.searchParams;
         const who = searchParams.get("who");
 
+        // console.log(userId, searchParams)
+
         if (!userId) {
             return NextResponse.json(
                 { error: "User ID is required" },
                 { status: 400 }
             );
         }
-        if (who !== "requestor" && who !== "requestee") {
+        // Validate 'who' parameter
+        if (!who || (who !== "requestor" && who !== "requestee")) {
             return NextResponse.json(
-                { error: "Invalid 'who' parameter" },
+                { error: "Invalid 'who' parameter. Must be either 'requestor' or 'requestee'" },
                 { status: 400 }
             );
         }
         const userIdObjectId = new ObjectId(userId);
-        if (who === "requestor") {
-            const trades = await TradeModel.find({
-                requestorId: userIdObjectId,
-            });
+        // if (who === "requestor") {
+        //     const trades = await TradeModel.find({
+        //         requestorId: userIdObjectId,
+        //     });
+        //     return NextResponse.json({
+        //         role: who,
+        //         trades,
+        //     });
+        //     // Handle requestor logic
+        // } else if (who === "requestee") {
+        //     const trades = await TradeModel.find({
+        //         requesteeId: userIdObjectId,
+        //     });
+        //     return NextResponse.json({
+        //         role: who,
+        //         trades,
+        //     });
+        // }
+            // Use a single query pattern with dynamic field selection
+            const queryField = `${who}Id`;
+            const trades = await TradeModel.find({ [queryField]: userIdObjectId })
+                .populate('requestorId')
+                .populate('requesteeId')
+                .populate('requestorItemId')
+                .populate('requesteeItemId');
+                // .lean();
+            console.log('trades:', trades);//TESTING
+    
             return NextResponse.json({
                 role: who,
                 trades,
+                count: trades.length
             });
-            // Handle requestor logic
-        } else if (who === "requestee") {
-            const trades = await TradeModel.find({
-                requesteeId: userIdObjectId,
-            });
-            return NextResponse.json({
-                role: who,
-                trades,
-            });
-        }
     } catch (error) {
         console.error("Error fetching items:", error);
         return NextResponse.json(

@@ -2,11 +2,6 @@ import { models, model, Schema } from "mongoose";
 // import { randomUUID as uuidv4 } from "crypto";
 
 const UserSchema: Schema = new Schema({
-    // id: {
-    //     type: String,
-    //     default: () => uuidv4(),
-    //     unique: true,
-    // },
     name: {
         type: String,
         required: true,
@@ -27,11 +22,6 @@ const UserSchema: Schema = new Schema({
 export const UserModel = models.User || model("User", UserSchema);
 
 const ItemSchema: Schema = new Schema({
-    // id: {
-    //     type: String,
-    //     default: uuidv4(),
-    //     unique: true,
-    // },
     userId: {
         type: Schema.Types.ObjectId,
         ref: "User",
@@ -60,11 +50,6 @@ export const statusEnum = {
 };
 
 const TradeSchema: Schema = new Schema({
-    // id: {
-    //     type: String,
-    //     default: () => uuidv4(),
-    //     unique: true,
-    // },
     requestorId: {
         type: Schema.Types.ObjectId,
         required: true,

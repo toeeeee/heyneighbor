@@ -2,22 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { ItemModel } from "@/models/models"; // Adjust the import path as needed
 import { connectMongo } from "@/utils/mongodb";
 import { ObjectId } from "mongodb";
-await connectMongo();//TESTING
+await connectMongo(); //TESTING
 
 // api/item/[id]
 export async function PUT(
     request: NextRequest,
-    { params} :  { params: Promise<{ id: string }> }
-){
+    { params }: { params: Promise<{ id: string }> }
+) {
     try {
         const id = (await params).id;
-        console.log('id:', id)//ID
+        console.log("id:", id); //ID
         const body = await request.json();
-        if(!id){
-            return NextResponse.json(
-                { error: "no id" },
-                { status: 400 }
-            );
+        if (!id) {
+            return NextResponse.json({ error: "no id" }, { status: 400 });
         }
         
         const { userId, itemName, itemDescription, amt} = body; // change id to be a path param to be good convention later
@@ -50,12 +47,13 @@ export async function PUT(
         return NextResponse.json(
             {
                 message: "Item updated successfully",
-                item: {
-                    id: updatedItem.id,
-                    userId: updatedItem.userId,
-                    itemName: updatedItem.itemName,
-                    itemDescription: updatedItem.itemDescription,
-                },
+                // item: {
+                //     id: updatedItem.id,
+                //     userId: updatedItem.userId,
+                //     itemName: updatedItem.itemName,
+                //     itemDescription: updatedItem.itemDescription,
+                // },
+                item: updatedItem
             },
             { status: 200 }
         );
@@ -69,18 +67,15 @@ export async function PUT(
 }
 
 export async function DELETE(
-        request: NextRequest,
-        { params} :  { params: Promise<{ id: string }> }
-    ){
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
+) {
     try {
         const id = (await params).id;
         // const body = await request.json();
 
-        if(!id){
-            return NextResponse.json(
-                { error: "no id" },
-                { status: 400 }
-            );
+        if (!id) {
+            return NextResponse.json({ error: "no id" }, { status: 400 });
         }
         const idObjectId = new ObjectId(id);
 
