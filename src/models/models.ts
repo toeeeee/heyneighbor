@@ -1,10 +1,9 @@
-import { UUID } from "mongodb";
 import { models, model, Schema } from "mongoose";
 import { randomUUID as uuidv4 } from "crypto";
 
 const UserSchema: Schema = new Schema({
     id: {
-        type: UUID,
+        type: String,
         default: () => uuidv4(),
         unique: true,
     },
@@ -29,12 +28,12 @@ export const UserModel = models.User || model("User", UserSchema);
 
 const ItemSchema: Schema = new Schema({
     id: {
-        type: UUID,
+        type: String,
         default: uuidv4(),
         unique: true,
     },
     userId: {
-        type: UUID,
+        type: String,
         ref: "User",
     },
     itemName: {
@@ -46,14 +45,7 @@ const ItemSchema: Schema = new Schema({
         required: true,
     },
 });
-// future fields to consider
-// Category: To categorize the item (e.g., Electronics, Furniture, etc.).
-// Condition: To describe the condition of the item (e.g., New, Like New, Used, etc.).
-// Images: To store URLs of images of the item.
-// Location: To specify the location of the item.
-// Date Posted: To track when the item was posted.
-// Trade Preferences: To specify what the user is looking to trade for.
-// Status: To indicate if the item is available, pending, or traded.
+
 
 export const ItemModel = models.Item || model("Item", ItemSchema);
 
@@ -64,27 +56,27 @@ const statusEnum = {
 
 const TradeSchema: Schema = new Schema({
     id: {
-        type: UUID,
+        type: String,
         default: () => uuidv4(),
         unique: true,
     },
     requestorId: {
-        type: UUID,
+        type: String,
         required: true,
         ref: "User",
     },
     requestorItemId: {
-        type: UUID,
+        type: String,
         required: true,
         ref: "Item",
     },
     requesteeId: {
-        type: UUID,
+        type: String,
         required: true,
         ref: "User",
     },
     requesteeItemId: {
-        type: UUID,
+        type: String,
         required: true,
         ref: "Item",
     },
@@ -97,3 +89,15 @@ const TradeSchema: Schema = new Schema({
 });
 
 export const TradeModel = models.Trade || model("Trade", TradeSchema);
+
+
+
+// future fields to consider for items
+
+// Category: To categorize the item (e.g., Electronics, Furniture, etc.).
+// Condition: To describe the condition of the item (e.g., New, Like New, Used, etc.).
+// Images: To store URLs of images of the item.
+// Location: To specify the location of the item.
+// Date Posted: To track when the item was posted.
+// Trade Preferences: To specify what the user is looking to trade for.
+// Status: To indicate if the item is available, pending, or traded.
